@@ -1,0 +1,23 @@
+/* 一部のラベル表示の設定で使用 */
+.input-row {
+    margin-bottom: 10px;		/* 要素の下側に「外側の余白」を作る */
+}
+
+.input-row label {
+    display: inline-block;		/* 横並びの性質を持ちながら、幅・高さを指定*/
+    width: 100px;				/* 幅の長さを指定 */
+}
+
+/* [編集][更新][削除]ボタンの表示設定で使用*/
+.disp-button {
+    display: inline-block;		/* 横並びの性質を持ちながら、幅・高さを指定		 */
+    padding: 8px 16px;			/* 文字とボタンの内側の余白 上下：8px 左右：16px */
+    background-color: gray;	/* ボタンの背景色を指定							 */
+    color: white;				/* 文字の色を指定								 */
+    text-decoration: none;		/* 文字についている装飾を設定 none：装飾を消す	 */
+    border-radius: 4px;			/*　ボタンの角の丸め設定 0pxとすると丸み無し	 */
+}
+
+.disp-button:hover {			/* マウスカーソルをボタンの上に乗せたときの見た目を設定 */
+    background-color: yellowgreen;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+	<html lang="ja"
+		  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<meta charset="UTF-8">
+	<title>CSV取り込み</title>
+</head>
+<body>
+
+	<h1>CSV取込</h1>
+
+	<div th:if="${message}"
+	     style="color: blue;">
+	    <p th:text="${message}">成功メッセージ</p>
+	</div>
+
+	<div th:if="${error}"
+	     style="color: red;">
+	    <p th:text="${error}">エラーメッセージ</p>
+	</div>
+
+	<form th:action="@{/csv/import}"
+	      method="post"
+	      enctype="multipart/form-data">
+
+			<input type="file"
+			       name="csvFileName"
+			       accept=".csv"
+			       required>
+
+			<br>
+			<br>				   
+			<button type="submit">CSV取込</button>
+
+	</form>
+
+	<br>
+	<a th:href = "@{/}">メニューに戻る</a>
+
+</body>
+</html>

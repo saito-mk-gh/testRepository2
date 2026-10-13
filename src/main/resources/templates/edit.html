@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+	<html lang="ja"
+		  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<meta charset="UTF-8">
+	<title>休祝日編集</title>
+</head>
+<body>
+
+	<h1 th:text = "${message}">メッセージ</h1>
+
+	<!-- 選択したidの休祝日表示 -->
+	<form th:action="@{/list/edit}" method="post">
+
+		<!-- CSS を用いて <label> の幅やを固定 										-->
+		<div class="input-row">
+
+			<!-- ID：編集不可 -->
+	        <label>ID：</label>
+			<span th:text="${editEvent.eventId}"></span>
+
+			<!-- DB更新時に必要な為、nameを設定 -->
+			<input type="hidden"
+				   name="Id"
+			       th:value="${editEvent.eventId}">
+	    </div>
+
+	    <!-- イベント日付：編集可能 -->
+		<!-- DB更新時に必要な為、nameを設定 -->
+		<div class="input-row">
+		    <label>日付：</label>
+		    <input type="date"
+				   name="Date"
+		           th:value="${editEvent.eventDate}">
+		</div>
+
+		<!-- タイプ名：編集可能 -->
+		<!-- DB更新時に必要な為、nameを設定 -->
+		<div class="input-row">
+		    <label>タイプ：</label>
+		    <input type="text"
+				   name="Type"
+		           th:value="${editEvent.eventType}">
+		</div>
+
+	    <!-- タイトル：編集可能 -->
+		<!-- DB更新時に必要な為、nameを設定 -->
+		<div class="input-row">
+		    <label>タイトル：</label>
+		    <input type="text"
+				   name="Title"
+		           th:value="${editEvent.eventTitle}">
+		</div>
+
+		<!-- 詳細：編集可能 -->
+		<!-- DB更新時に必要な為、nameを設定 -->
+		<div class="input-row">
+		    <label>詳細：</label>
+		    <input type="text"
+				   name="Detail"
+		           th:value="${editEvent.eventDetail}">
+		</div>
+
+		<!-- 作成日：編集不可 -->
+		<!-- DB更新時に不要な為、nameを設定せず -->
+		<div class="input-row">
+		    <label>	作成日：</label>
+		    <input type="text"
+		           th:value="${editEvent.createdAt}"
+				   readonly>
+		</div>
+
+		<!-- 更新日：編集不可 -->
+		<!-- DB更新時に別方法でセットする、nameを設定せず -->
+		<div class="input-row">
+		    <label>更新日：</label>
+		    <input type="text"
+		           th:value="${editEvent.updatedAt}"
+				   readonly>
+		</div>
+
+		<button type="submit" class="disp-button">更新</button>
+
+	</form>
+
+	<br>
+	<a th:href = "@{/list/all}">休祝日一覧に戻る</a>
+	
+</body>
+</html>

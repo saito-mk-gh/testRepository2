@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>メニュー画面</title>
+</head>
+<body>
+	<h1>メニュー一覧</h1>
+	<ul>
+		<li><a th:href = "@{/calendar}">カレンダーページ</a></li>
+		<li><a th:href = "@{/list/new}">休祝日登録ページ</a></li>
+		<li><a th:href = "@{/list/all}">休祝日一覧ページ</a></li>
+		<li><a th:href = "@{/csv}">CSV取込ページ</a></li>
+		
+		
+	</ul>
+	
+</body>
+</html>

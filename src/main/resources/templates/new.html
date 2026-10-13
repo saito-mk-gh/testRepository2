@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+	<html lang="ja"
+		  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<meta charset="UTF-8">
+	<title>休祝日登録</title>
+</head>
+<body>
+
+	<h1>休祝日登録</h1>
+
+	<form th:action="@{/list/new}"
+			 method="post"
+			 th:object="${newData}">
+
+		<!-- label for="abc"					-->
+		<!--    ↓								-->
+		<!-- input id="abc"						-->
+		<!--    ↓								-->
+		<!-- HTML上の入力欄とlabelを関連付ける	-->
+
+		<!-- th:field="*{def}"										-->
+		<!-- 	↓													-->
+		<!-- Javaオブジェクトのdefプロパティと関連付ける			-->
+		<!-- ※{}内の値												-->
+		<!--   th:objectので指定したJavaオブジェクトのプロパティ名	-->
+		<!--   ここでは、											-->
+		<!--     newData = Eventクラスのインスタンス(オブジェクト)	-->
+		<!-- 　の為、Eventクラス内の変数名をセットすること			-->
+							 
+		<div class="input-row">
+		    <label for="Date">日付：</label>
+		    <input type="date"
+				   id="Date"
+				   th:field="*{eventDate}">
+		</div>
+		
+		<div class="input-row">
+	        <label for="Type">タイプ：</label>
+	        <input type="text"
+				   id="Type"
+				   th:field="*{eventType}">
+	    </div>
+
+		<div class="input-row">
+		    <label for="Title">タイトル：</label>
+		    <input type="text"
+				   id="Titie"
+				   th:field="*{eventTitle}">
+		</div>
+
+		<div class="input-row">
+		    <label for="Detail">詳細：</label>
+		    <input type="text"
+				   id="Detail"
+				   th:field="*{eventDetail}">
+		</div>
+
+	    <button type="submit"  class="disp-button">登録</button>
+
+	</form>	
+
+	<br>
+	<a th:href = "@{/list/all}">休祝日一覧に戻る</a>	
+	<br>
+	<a th:href = "@{/}">メニューに戻る</a>
+
+</body>
+</html>

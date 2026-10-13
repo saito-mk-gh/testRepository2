@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ListMapper">
+
+	<!-- 【SELECT】全ての休祝日を取得するためのSQLを定義 -->
+	<select id = "getAllEvents" resultType = "com.example.demo.entity.Event">
+		SELECT event_id as eventId,
+			   event_date as eventDate,
+			   event_type as eventType,
+			   event_title as eventTitle,
+			   event_detail as eventDetail,
+			   created_at as createdAt,
+			   updated_at as updatedAt
+		FROM calendar_event
+		ORDER BY event_date
+	</select>
+
+	<!-- 【SELECT】選択したidの休祝日を取得するためのSQLを定義 -->
+	<select id = "getEditEventById" resultType = "com.example.demo.entity.Event">
+		SELECT event_id as eventId,
+			   event_date as eventDate,
+			   event_type as eventType,
+			   event_title as eventTitle,
+			   event_detail as eventDetail,
+			   created_at as createdAt,
+			   updated_at as updatedAt
+		FROM calendar_event
+		Where event_id = #{id}
+	</select>
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.EditMapper">
+
+	<update id="updateEventData">
+	    UPDATE calendar_event
+	    SET
+	        event_date = #{eventDate},
+	        event_type = #{eventType},
+	        event_title = #{eventTitle},
+	        event_detail = #{eventDetail},
+	        updated_at = CURRENT_TIMESTAMP
+	    WHERE event_id = #{eventId}
+	</update>
+
+</mapper>
