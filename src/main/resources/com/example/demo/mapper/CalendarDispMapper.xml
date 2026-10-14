@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CalendarDispMapper">
+
+	<select id="findByEvent"
+	         resultType="com.example.demo.entity.Event">
+
+		<!-- MyBatisのxmlではSQL文の中で"<"と使用したくても -->
+		<!-- XMLの特殊文字として扱われる。					-->
+		<!-- その為、"&lt;"に置き換える。					-->
+	    SELECT
+	    	event_id as eventId,
+			event_date as eventDate,
+			event_type as eventType,
+			event_title as eventTitle,
+			event_detail as eventDetail,
+			created_at as createdAt,
+			updated_at as updatedAt
+	    FROM calendar_event
+	    WHERE event_date >= #{startDate}
+	      AND event_date &lt; #{endDate}
+
+	</select>
+
+</mapper>

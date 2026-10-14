@@ -80,7 +80,7 @@
 	        background-color: #e1f5fe;	/* 背景色：水色 */
 	        color: #0277bd;				/* 文字色：青	*/
 	    }
-
+		
 		/* ※今回は空欄には日付を表示しないようにしている為、			*/
 		/*	 このCSS設定は削除可能										*/
 		/*																*/
@@ -217,11 +217,31 @@
 					<!-- 														-->
 					<!-- th:text="${day.dayOfMonth}"							-->
 					<!-- 	日付オブジェクトから「日」の部分を取得して表示		-->
-	                <span th:if="${day != null}"
-	                      th:text="${day.dayOfMonth}">
-	                    1
-	                </span>
+<!--	                <span th:if="${day != null}"-->
+<!--	                      th:text="${day.dayOfMonth}">-->
+<!--	                    1-->
+<!--	                </span>-->
 
+					<!-- 表示する年月のカレンダーを休祝日データ入りに変更-->
+					<span th:if="${day != null}"
+					      th:text="${day.targetDate.dayOfMonth}">
+					    1
+					</span>
+					
+					<!-- その日の予定をすべて表示 -->
+					<div th:if="${day != null}">
+
+						<div th:each="event : ${day.eventsForDate}">
+							
+					        <span th:text="${event.eventTitle}">
+								定例会議
+							</span>
+							
+						</div>
+						
+					</div>					
+					<!-- 表示する年月のカレンダーを休祝日データ入りに変更-->
+					
 	            </td>
 				
 	        </tr>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.dto.CalendarDayDto;
 import com.example.demo.service.CalendarDispService;
 
 import lombok.RequiredArgsConstructor;
@@ -64,12 +65,19 @@ public class CalendarDispController {
         // 表示する年月を作成
         YearMonth target = YearMonth.of(targetYear, targetMonth);
 
+        // カレンダー表示のみ → 休祝日データ表示込みに変更
         // 表示する年月のカレンダーを作成
-        List<List<LocalDate>> weeks =
+//        List<List<LocalDate>> weeks =
+//        		calendarDispService.createCalendar(
+//                        target.getYear(),
+//                        target.getMonthValue());
+
+        // 表示する年月のカレンダーを作成（休祝日データ入り）
+        List<List<CalendarDayDto>> weeks =
         		calendarDispService.createCalendar(
                         target.getYear(),
                         target.getMonthValue());
-
+        
         // 表示年月の
         //   日付データ(weeks)
         //   表示年(target.getYear())

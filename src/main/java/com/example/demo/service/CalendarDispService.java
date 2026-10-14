@@ -8,10 +8,25 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.CalendarDayDto;
+import com.example.demo.entity.Event;
+import com.example.demo.mapper.CalendarDispMapper;
+
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CalendarDispService {
 
+	// DI
+	// ※CalendarDispMapperインターフェイスを、このクラスから利用したい為、
+	//   その依存オブジェクトを保持するために
+	//   private final でフィールドを宣言する。	
+	private final CalendarDispMapper calendarDispMapper;	
 	
+    // カレンダー表示のみ → 休祝日データ表示込みに変更
+	// ※List<LocalDate> → List<CalendarDayDto>
+	//
 	// List<List<LocalDate>> の構造について：
 	//   外側の List<>：
 	//     複数週間分をまとめたもの
@@ -20,7 +35,7 @@ public class CalendarDispService {
 	//	 LocalDate  ：年月日を表すデータ
 	//	 null       ：日付が存在しない空欄
 	// →週ごとに7個の日付をまとめたリストを返している
-	public List<List<LocalDate>> createCalendar(
+	public List<List<CalendarDayDto>> createCalendar(
             int year,
             int month) {
 
@@ -61,12 +76,22 @@ public class CalendarDispService {
         // ①と②を1行で表現：
         // int startOffset = firstDay.getDayOfWeek().getValue() % 7;
         
-        // カレンダー全体
-        List<List<LocalDate>> weeks = new ArrayList<>();
+        // カレンダー全体の格納用変数を宣言
+        // ※カレンダー表示のみ → 休祝日データ表示込みに変更
+    	// 　List<LocalDate> → List<CalendarDayDto>
+        List<List<CalendarDayDto>> weeks = new ArrayList<>();
         
-        // 1週間分のデータ
-        List<LocalDate> week = new ArrayList<>();
-
+        // 1週間分のデータの格納用変数を宣言
+        // ※カレンダー表示のみ → 休祝日データ表示込みに変更
+    	// 　List<LocalDate> → List<CalendarDayDto>
+        List<CalendarDayDto> week = new ArrayList<>();
+        
+        // DBから該当年月のデータを取得
+        LocalDate startDate = yearMonth.atDay(1);				// 該当年月の1日
+        LocalDate endDate = yearMonth.plusMonths(1).atDay(1);   // 該当年月の翌月の1日
+        List<Event> events =
+        		calendarDispMapper.findByEvent(startDate, endDate);
+        
         // 1日より前の空欄を追加
         // 例：2026年10月01日の場合
         //     startOffsetは 4 となるので、このfor分は4回ループする。
@@ -78,8 +103,26 @@ public class CalendarDispService {
         // 例：2026年10月の場合
         //     2026年10月01日から2026年10月31日までを追加。
         for (int day = 1; day <= lastDay; day++) {
-            week.add(yearMonth.atDay(day));
 
+            // ※カレンダー表示のみ → 休祝日データ表示込みに変更(ここから)
+//        	week.add(yearMonth.atDay(day));
+
+        	// 該当年月の1日～末日までの1日ごとの日付を
+        	// 変数 targetDate にセット。
+        	LocalDate targetDate = yearMonth.atDay(day);	
+
+        	// calendarDayDto インスタンスを生成。
+        	// ※変数 targetDate と引数 true を渡す
+            CalendarDayDto calendarDayDto = new CalendarDayDto(
+           		targetDate,
+                true
+            );
+
+            // calendarDayDto インスタンスを変数 week に追加
+            week.add(calendarDayDto);
+        	
+            // ※カレンダー表示のみ → 休祝日データ表示込みに変更(ここまで)
+        	
             // 7日分になったら1週間を完成させる
             // 例：2026年10月第1週は 空白4つ + 日付3日分
             if (week.size() == 7) {
@@ -112,6 +155,34 @@ public class CalendarDispService {
             weeks.add(week);
         }
 
+     // DBから取得したイベントを日付ごとに格納
+        for (List<CalendarDayDto> days : weeks) {
+            for (CalendarDayDto day : days) {
+
+                // 月初・月末の空白マスをスキップ
+                if (day == null) {
+                    continue;
+                }
+
+                // day.getTargetDate() ：カレンダーの日付
+                // event.getEventDate()：DBから取得したイベントの日付
+                for (Event event : events) {
+                    if (day.getTargetDate().equals(event.getEventDate())) {
+
+                    	// dayからイベント一覧を取得
+                    	List<Event> eventList = day.getEventsForDate();
+
+                    	// イベント一覧にイベントを追加する
+                    	eventList.add(event);
+                    	
+                    	// 上記2行の処理を1行で表記した場合：
+                    	// day.getEventsForDate().add(event);
+
+                    }
+                }
+            }
+        }
+        
         return weeks;
     }
 	
