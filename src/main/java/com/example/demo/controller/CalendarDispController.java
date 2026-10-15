@@ -63,8 +63,15 @@ public class CalendarDispController {
         int targetMonth = month != null ? month : today.getMonthValue();
 
         // 表示する年月を作成
-        YearMonth target = YearMonth.of(targetYear, targetMonth);
+//        YearMonth target = YearMonth.of(targetYear, targetMonth);
 
+        // 表示する年月を作成
+        // ※URLに出力されている year=2026&month=10 の値を手動で
+        //   year=2026&month=13 や year=2026&month=0 のように
+        //   カレンダー表示時の月の範囲外エラーの回避対策を入れたものにする。
+        //
+        YearMonth target = YearMonth.of(targetYear, 1).plusMonths(targetMonth - 1L);
+        
         // カレンダー表示のみ → 休祝日データ表示込みに変更
         // 表示する年月のカレンダーを作成
 //        List<List<LocalDate>> weeks =

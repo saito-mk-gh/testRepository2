@@ -1,3 +1,13 @@
+/* <body>タグ内に対して適用するCSSの設定									*/
+body {
+    font-family: sans-serif;	/* フォントの種類を指定するCSSプロパティ	*/
+								/* sans-serif：								*/
+								/*   ゴシック体のような、文字の端に飾りが	*/
+								/*   ない書体の総称							*/
+    margin: 15px;				/* 要素の外側に余白を作る設定				*/
+								/* ※margin: ●px → 上下左右すべて●px		*/
+}
+
 /* 一部のラベル表示の設定で使用 */
 .input-row {
     margin-bottom: 10px;		/* 要素の下側に「外側の余白」を作る */
@@ -20,4 +30,101 @@
 
 .disp-button:hover {			/* マウスカーソルをボタンの上に乗せたときの見た目を設定 */
     background-color: yellowgreen;
+}
+
+/* 　親要素：表示領域<body> */
+/* 　子要素：子要素：<table class="calendar"> */
+
+/* 表（カレンダー）の設定 */
+.calendar {
+    width: 100%;				/* 親要素の幅を基準にした子要素の幅：100%	*/
+    max-width: 900px;			/* 子要素の最大幅：900px					*/
+    margin: 0 auto;				/* 左右の余白を自動調整して中央に配置		*/
+    border-collapse: collapse;	/* 隣り合うセルの枠線をまとめて、			*/
+								/* 1本の線として表示する設定 				*/
+    table-layout: fixed;		/* テーブルの列幅を固定的に決めるための設定 */
+}
+
+/* セルに対する設定（罫線の設定含む）				*/
+/* th：見出しセル。今回は「日」「月」「火」など。	*/
+/* td：通常のセル。今回は日付を表示する場所。		*/
+.calendar th,
+.calendar td {
+    border: 1px solid #ccc;	/* border：枠線を設定			*/
+								/* solid：実線設定     			*/
+								/* #ccc	：線の色設定			*/
+								/*			(ccc:薄灰色)		*/
+	height: 45px;				/* セルの高さを指定				*/
+    padding: 8px;				/* セル内の余白を指定			*/
+    vertical-align: top;		/* セル内の縦方向の位置を指定	*/
+								/*			(top:上側に揃える)	*/
+}
+
+.calendar th {
+    text-align: center;				/* 文字を横方向の中央に揃える	*/
+    background-color: #f2f2f2;	/* 背景色：薄いグレー 			*/
+}
+
+/* 日曜日 									*/
+/* ※first-child：							*/
+/*   親要素の中で最初の子要素を意味します	*/
+.calendar th:first-child,
+.calendar td:first-child {
+    background-color: #fce4ec;	/* 背景色：ピンク	*/
+    color: #c2185b;				/* 文字色：赤		*/			
+}
+
+/* 土曜日 */
+/* ※last-child：							*/
+/*   親要素の中で最後の子要素を意味します	*/
+.calendar th:last-child,
+.calendar td:last-child {
+    background-color: #e1f5fe;	/* 背景色：水色 */
+    color: #0277bd;				/* 文字色：青	*/
+}
+
+/* 祝日セル */
+.calendar td.holiday {
+	background-color: #fce4ec;
+	color: #c2185b;
+}
+
+/* カレンダーの空欄セルにある文字を透明にして見えなくするCSS	*/
+/* class="calendar"の中にある empty クラス付きの <td>を指定		*/
+/*	 <td class = "empty">●●</td>					*/
+.calendar td.empty {
+    color: transparent;	/* 文字色：透明*/
+}
+
+/* 空欄セル（empty）の中にある <span> を、						*/
+/* 場所や大きさを残したまま見えなくするCSS						*/
+/*																*/
+/* class="calendar"の中にある empty クラス付きの <td>を指定		*/
+/*   ※<td class = "empty"></td>								*/
+/* この<td></td>の中にセットされている<span>が対象				*/
+.calendar td.empty span {
+    visibility: hidden;		/* 要素を見えなくする				*/
+							/* 但し、要素が占めるスペースは残る	*/
+}			
+
+/* カレンダーのタイトルに対して設定するCSS		 			*/
+/* .calendar-title：										*/
+/*   HTMLの class="calendar-title" が付いている要素を指定	*/
+.calendar-title {
+    text-align: center;		/* 文字を横方向の中央に揃える	*/
+}
+
+/*	前月・今月・翌月リンクに対して設定するCSS				*/
+/* .calendar-nav：											*/
+/*   HTMLの class="calendar-nav" が付いている要素を指定		*/
+.calendar-nav {
+    text-align: center;		/* 文字を横方向の中央に揃える	*/
+    margin-bottom: 20px;	/* 要素の外側の下に余白を作る	*/
+}
+
+/* .calendar-nav a：												*/
+/*   HTMLの class="calendar-nav" の中にある全ての <a> 要素を指定	*/
+ .calendar-nav a {
+    margin: 0 15px;		/* 要素の外側の余白を設定 					*/
+						/* 　margin: 上下設定(px) 左右設定(px)		*/
 }

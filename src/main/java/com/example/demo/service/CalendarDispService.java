@@ -178,6 +178,11 @@ public class CalendarDispService {
                     	// 上記2行の処理を1行で表記した場合：
                     	// day.getEventsForDate().add(event);
 
+                    	// 祝日判定
+                        if ("祝日".equals(event.getEventType())) {
+                            day.setBlnHoliday(true);
+                        }
+                    	
                     }
                 }
             }

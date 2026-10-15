@@ -20,6 +20,9 @@ public class CalendarDayDto {
  // その日に該当するDBの予定データ一覧を格納
     private List<Event> eventsForDate = new ArrayList<>();
 
+	// 該当日に祝日扱いのイベントが含まれているかの判定フラグ
+    private boolean blnHoliday;
+
     // コンストラクタを生成
     // ※必要となるものが date と blnCurrentMonth の 2つのみの為
     //   アノテーションを付けずにコンストラクタを生成することとする。
