@@ -91,8 +91,8 @@ public class CalendarDispController {
         //   表示月(target.getMonthValue())
         // をControllerからHTMLへデータを渡す
         model.addAttribute("weeks", weeks);
-        model.addAttribute("year", target.getYear());
-        model.addAttribute("month", target.getMonthValue());
+        model.addAttribute("tgtYear", target.getYear());
+        model.addAttribute("tgtMonth", target.getMonthValue());
 
         // 前月、翌月の値を格納
         // ※年をまたぐ場合も自動的に計算される。

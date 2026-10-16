@@ -85,7 +85,18 @@
 	</form>
 
 	<br>
-	<a th:href = "@{/list/all}">休祝日一覧に戻る</a>
+
+	<!-- 戻り先：固定 -->
+<!--	<a th:href = "@{/list/all}">休祝日一覧に戻る</a>-->
+
+	<!-- 戻り先：可変 -->
+	<div th:if="${ReferringPage == 'L'}">
+	    <a th:href = "@{/list/all}">休祝日一覧に戻る</a>
+	</div>
+	
+	<div th:if="${ReferringPage == 'C'}">
+		<a th:href="@{/calendar(selectYear=${ReferringYear}, selectMonth=${ReferringMonth})}">カレンダーに戻る</a>
+	</div>
 	
 </body>
 </html>

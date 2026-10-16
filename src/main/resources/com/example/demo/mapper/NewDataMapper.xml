@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.NewDataMapper">
 
-	<insert id="addEventData">
+	<insert id="addEventData"
+			 parameterType="com.example.demo.entity.Event"
+			 useGeneratedKeys="true"
+			 keyProperty="eventId">
 		INSERT INTO calendar_event (
 		            event_date,
 		            event_type,

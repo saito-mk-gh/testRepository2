@@ -128,3 +128,8 @@ body {
     margin: 0 15px;		/* 要素の外側の余白を設定 					*/
 						/* 　margin: 上下設定(px) 左右設定(px)		*/
 }
+
+/* 新規登録 or 更新したIDと一致する行に対して色を付ける */
+.added-and-updated-row {
+    background-color: #fff3cd;
+}

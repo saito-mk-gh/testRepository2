@@ -12,8 +12,8 @@
 
 	<!-- カレンダーの表示年月 -->
 	<h2 class="calendar-title">
-	    <span th:text="${year}">YYYY</span>年
-	    <span th:text="${month}">MM</span>月
+	    <span th:text="${tgtYear}">YYYY</span>年
+	    <span th:text="${tgtMonth}">MM</span>月
 	</h2>
 
 	<!-- 表示年月の移動(前月/翌月) -->
@@ -91,10 +91,22 @@
 
 						<div th:each="event : ${day.eventsForDate}">
 							
-					        <span th:text="${event.eventTitle}">
-								タイトル
-							</span>
-							
+						<!-- DBから取得したデータのみをセット		-->
+						<!-- <span th:text="${event.eventTitle}"> 	-->
+						<!--      タイトル							-->
+						<!-- </span> 								-->
+
+						<!-- DBから取得したデータにリンクも付けてセット	-->
+							<a th:href="@{/list/edit/{selectId}(
+											selectId=${event.eventId},
+											selectYear=${tgtYear},
+											selectMonth=${tgtMonth},
+											from='C')}">
+								<span th:text="${event.eventTitle}">
+									タイトル
+								</span>
+							</a>
+														
 						</div>
 						
 					</div>					

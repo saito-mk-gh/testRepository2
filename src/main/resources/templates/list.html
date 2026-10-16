@@ -40,7 +40,21 @@
 			</tr>
 		</thread>
 		<tbody>
-			<tr th:each = "events : ${allEvents}">
+			
+			<!-- 登録/更新したIDに対する色付処理を追加(th:classappend の部分)	-->
+			<!-- 条件：下記2つのどちらかの条件を満たしているかどうか			-->
+			<!--   条件①：UpdatedId キー が null ではなく、且つ				-->
+			<!--        　 UpdatedId キー と events.eventId が等しいかどうか	-->
+			<!--   条件②：AddedId キー が null ではなく、且つ					-->
+			<!--        　 AddedId キー と events.eventId が等しいかどうか		-->
+			<!-- 真の場合：														-->
+			<!--   cssの設定の「added-and-updated-row」を適用する				-->
+			<!-- 偽の場合：														-->
+			<!--   色付処理はしない												-->
+			<tr th:each = "events : ${allEvents}"
+				th:classappend=
+					"(${UpdatedId != null and events.eventId == UpdatedId}) or (${AddedId != null and events.eventId == AddedId}) ? 'added-and-updated-row' : ''">
+				
 				<td th:text = "${events.eventId}">Id</td>
 				<td th:text = "${events.eventDate}">Date</td>
 				<td th:text = "${events.eventType}">Type</td>
@@ -49,26 +63,30 @@
 				<td th:text = "${events.createdAt}">Create</td>
 				<td th:text = "${events.updatedAt}">Update</td>
 				<td>
-				    <a th:href="@{/list/edit/{selectId}(selectId=${events.eventId})}"
-					     class="disp-button">編集</a>
 
-					<td>
-						<form th:action="@{/list/delete}" method="post">
+<!--					<a th:href="@{/list/edit/{selectId}(selectId=${events.eventId})}"-->
+<!--					     class="disp-button">編集</a>-->
 
-							<input type="hidden"
-									name="Id"
-									th:value="${events.eventId}">
+					 <a th:href="@{/list/edit/{selectId}(selectId=${events.eventId}, from='L')}"
+					      class="disp-button">編集</a>
+				</td>
+
+				<td>
+					<form th:action="@{/list/delete}" method="post">
+
+						<input type="hidden"
+								name="Id"
+								th:value="${events.eventId}">
 									
-							<button type="submit"
-									class="disp-button"	
-									th:onclick="'return confirm(\'ID：' + ${events.eventId} + ' を削除しますか？\');'">
-										削除
-							</button>
+						<button type="submit"
+								class="disp-button"	
+								th:onclick="'return confirm(\'ID：' + ${events.eventId} + ' を削除しますか？\');'">
+									削除
+						</button>
 
-						</form>
-			        </td>					
+					</form>
+				</td>					
 				
-				 </td>
 			</tr>
 		</tbody>		
 	</table>

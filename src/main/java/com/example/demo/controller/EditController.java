@@ -61,7 +61,8 @@ public class EditController {
 	    //   というイメージ
 	    //
 	    redirectAttributes.addFlashAttribute("UpdateSuccess", "更新しました");
-
+	    redirectAttributes.addFlashAttribute("UpdatedId", event.getEventId());
+	    
 	    return "redirect:/list/all";
 	}
 

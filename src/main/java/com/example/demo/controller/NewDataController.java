@@ -47,7 +47,7 @@ public class NewDataController {
     		) {
 
 		newDataImportService.addEventData(event);
-
+		
 	    // addFlashAttribute：
 	    //   リダイレクト先の次のリクエストで一時的に使える属性
 	    //   URLには出さず、リダイレクト先の画面へ一時的に値を渡す
@@ -56,6 +56,7 @@ public class NewDataController {
 	    //   というイメージ
 	    //
 	    redirectAttributes.addFlashAttribute("AddSuccess", "登録しました");
+	    redirectAttributes.addFlashAttribute("AddedId", event.getEventId());
 
         return "redirect:/list/all";
     }
